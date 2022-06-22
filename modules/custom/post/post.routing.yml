@@ -1,0 +1,17 @@
+post.search:
+  path: '/post/search'
+  defaults:
+    _controller: '\Drupal\post\Controller\PostController::search'
+    _title: 'Welcome to search post controller'
+  requirements:
+    _permission: 'access content'
+
+
+post.show:
+  path: '/post/show/{id}'
+  defaults:
+    _controller: '\Drupal\post\Controller\PostController::show'
+    _title: 'Welcome to show post controller'
+    id: ~
+  requirements:
+    _permission: 'access content'
