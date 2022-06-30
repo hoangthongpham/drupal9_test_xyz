@@ -1,0 +1,5 @@
+post-lib:
+  version: 1.x
+  css:
+    theme:
+      css/cc.css: { }
