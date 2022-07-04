@@ -1,5 +1,7 @@
 post-lib:
   version: 1.x
+  js:
+    js/script.js: { }
   css:
     theme:
       css/cc.css: { }
