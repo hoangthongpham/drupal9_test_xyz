@@ -1,0 +1,1 @@
+window.drupalTranslations = {"strings":{"":{"sleeping":"Sleeping"},"Long month name":{"sleeping":"Sleeping"}}};

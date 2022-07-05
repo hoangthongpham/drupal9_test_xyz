@@ -1,0 +1,7 @@
+article_module.form:
+  path: 'article/create'
+  defaults:
+    _title: 'Add Article'
+    _form: '\Drupal\article_module\Form\ArticleForm'
+  requirements:
+    _permission: 'access content'

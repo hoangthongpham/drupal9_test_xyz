@@ -11,8 +11,12 @@
   }
 function post_module_page_attachments(array &$page)
 {
-  $page['#attached']['library'][] = 'post_module/post-lib';
-  //dd($page);
+  $routeName = \Drupal::routeMatch()->getRouteName();
+
+  if ($routeName == 'post_module.search')
+    $page['#attached']['library'][] = 'post_module/post-search';
+  //$controller=ControllerResolverInterface::getController();
+ // dd($controller);
 }
 
 ?>

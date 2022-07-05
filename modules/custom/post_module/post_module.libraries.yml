@@ -5,3 +5,10 @@ post-lib:
   css:
     theme:
       css/cc.css: { }
+
+post-search:
+  version: 1.x
+  css:
+    theme:
+      css/post_search.css: {}
+

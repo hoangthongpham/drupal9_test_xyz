@@ -1,3 +1,3 @@
 var helloworld = "sleeping";
 
-alert(Drupal.t('sleeping'))
+//alert(Drupal.t('sleeping'))
