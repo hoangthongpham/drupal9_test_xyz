@@ -1,0 +1,46 @@
+<a class="btn btn-sm btn-primary my-2" href="create">{{ 'Add new' |t }}</a>
+{#filter category, langcode, title#}
+<div class="box-filter row mb-3" >
+  <div class="col-md-3">
+    <label for="filter-title" class="form-label">{{ 'Title' |t }}</label>
+    <input type="text" class="form-control" id="filter-title">
+  </div>
+  <div class="col-md-2">
+    <label for="filter-language" class="form-label">{{ 'Language' |t }}</label>
+    <select id="filter-language" class="form-control">
+      <option value="All">Any</option>
+      {% for key,lang in langcodesList %}
+        <option value="{{ lang }}">{{ lang }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-2">
+    <label for="filter-status" class="form-label">{{ 'Status' |t }}</label>
+    <select id="filter-status" class="form-control">
+      <option value="All">Any</option>
+      <option value="1">{{ 'Published' |t }}</option>
+      <option value="2">{{ 'Unpublished' |t }}</option>
+    </select>
+
+  </div>
+  <div class="col-md-1">
+    <label for="filter-language" class="form-label invisible ">Ngôn</label>
+    <button onClick="goFilter()" class="btn btn-secondary">{{ 'Filter' |t }}</button>
+  </div>
+  <div class="col-md-1">
+    <label for="filter-language" class="form-label invisible ">Ngôn</label>
+    <button onClick="resetFilter()" class="btn btn-secondary">{{ 'Reset' |t }}</button>
+  </div>
+</div>
+<table id="datatable1" class="table table-bordered">
+  <thead>
+  <th>{{ 'Title'|t }}</th>
+  <th>{{ 'Author' |t }}</th>
+  <th>{{ 'Language' |t }}</th>
+  <th>{{ 'Updated'|t }}</th>
+  <th>{{ 'Status'|t }}</th>
+  <th>{{ 'Operations' |t }}</th>
+  </thead>
+  <tbody>
+  </tbody>
+</table>

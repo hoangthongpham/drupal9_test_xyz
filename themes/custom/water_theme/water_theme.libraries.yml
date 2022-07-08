@@ -2,9 +2,9 @@ global-styling:
   version: 1.x
   js:
     js/script.js: {}
-    js/jquery.min.js: {}
+#    js/jquery.min.js: {}
 #    js/bootstrap.min.js: {}
-    js/ie10-viewport-bug-workaround: {}
+#    js/ie10-viewport-bug-workaround: {}
   css:
     theme:
       css/mediumish.css: {}

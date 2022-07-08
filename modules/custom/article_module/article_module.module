@@ -1,0 +1,9 @@
+<?php
+  function article_module_theme($existing, $type, $theme, $path) {
+    return [
+      'index_template' => [
+        'variables' => ['langcodesList' => NULL],
+      ],
+    ];
+  }
+?>

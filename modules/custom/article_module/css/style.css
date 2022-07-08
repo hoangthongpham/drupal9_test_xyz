@@ -1,0 +1,4 @@
+.dropdown-menu-sm{
+  /*min-width: 5rem !important;*/
+  transform: translate(0px, 30px) !important;
+}

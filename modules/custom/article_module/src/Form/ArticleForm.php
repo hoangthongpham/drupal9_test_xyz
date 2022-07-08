@@ -11,6 +11,8 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Url;
 use Drupal\Core\Routing;
+use Drupal\user\Entity\User;
+use Drupal\node\Entity\Node;
 
 class ArticleForm extends FormBase {
   /**
@@ -24,29 +26,59 @@ class ArticleForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['form_info'] = array(
-      '#markup' => '<h4>Saving User Info in a custom table in the database</h4><br>',
-    );
-    $form['first_name'] = array(
+
+
+    $form['title'] = array(
       '#type' => 'textfield',
-      '#title' => t('First Name'),
+      '#title' => t('Title'),
       '#required' => TRUE,
-      '#maxlength' => 50,
       '#default_value' => '',
+      '#attributes' => [
+        'class' => ['form-control']
+      ]
     );
-    $form['last_name'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Last Name'),
-      '#required' => TRUE,
-      '#maxlength' => 50,
+    $form['langcode'] = [
+      '#type' => 'language_select',
+      '#title' => t('Language'),
+      '#attributes' => [
+        'class' => ['form-control']
+      ]
+    ];
+    $form['body'] = array(
+      '#type' => 'text_format',
+      '#title' => t('Body'),
       '#default_value' => '',
+
+    );
+    $form['field_tags'] = array(
+      '#type' => 'entity_autocomplete',
+      '#title' => t('tagged with'),
+      '#target_type' => 'taxonomy_term',
+      '#size' => 30,
+      '#maxlength' => 1024,
+      '#tags' => TRUE
+
+    );
+    $form['field_image'] = [
+      //'#title' => t('Upload'),
+      '#type' => 'managed_file',
+      '#attributes' => [
+        'class' => ['form-control'],
+        'accept' => ['image/*']
+      ]
+    ];
+    $form['status'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Published'),
     );
 
     $form['actions']['#type'] = 'actions';
     $form['actions']['submit'] = array(
       '#type' => 'submit',
-      '#value' => $this->t('Save Article'),
-      '#button_type' => 'primary',
+      '#value' => $this->t('Save'),
+      '#attributes' => [
+        'class' => ['btn btn-primary'],
+      ]
     );
     return $form;
   }
@@ -55,11 +87,8 @@ class ArticleForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    if ($form_state->getValue('first_name') == '') {
-      $form_state->setErrorByName('first_name', $this->t('Please Enter First Name'));
-    }
-    if ($form_state->getValue('last_name') == '') {
-      $form_state->setErrorByName('last_name', $this->t('Please Enter Last Name'));
+    if ($form_state->getValue('title') == '') {
+      $form_state->setErrorByName('title', $this->t('Please Enter Title'));
     }
   }
 
@@ -68,17 +97,38 @@ class ArticleForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     try{
-      $conn = Database::getConnection();
       $field = $form_state->getValues();
+      $user = User::load(\Drupal::currentUser()->id());
 
-      $fields["first_name"] = $field['first_name'];
-      $fields["last_name"] = $field['last_name'];
-      $conn->insert('user_info')
-        ->fields($fields)->execute();
-      \Drupal::messenger()->addMessage(t("User info has been succesfully saved"));
+      $file = \Drupal::entityTypeManager()->getStorage('file')
+        ->load($form_state->getValue('field_image')[0]);
+
+      $tags=[];
+      $field_tags=$form_state->getValue('field_tags');
+      foreach ($field_tags as $tag){
+        $tags[]=\Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($tag['target_id']);
+      }
+
+      $newArticle_custom = Node::create([
+        'type' => 'article_custom',
+        'uid' => $user->id(),
+        'title' => array('value' => $field['title']),
+        'langcode' => array('value' => $field['langcode']),
+        'body' => array('value' => $field['body']['value'], 'format' => $field['body']['format']),
+        'field_tags' => $tags,
+        'field_image' => $file,
+        'status' => $field['status']
+      ]);
+
+      $newArticle_custom->enforceIsNew();
+      $newArticle_custom->save();
+
+      \Drupal::messenger()->addMessage(t("The action has been successfully saved."));
+      $url = Url::fromRoute('article_module.index');
+      $form_state->setRedirectUrl($url);
     }
     catch(Exception $ex){
-      \Drupal::logger('userinfo')->error($ex->getMessage());
+      \Drupal::logger('article custom')->error($ex->getMessage());
     }
   }
 }

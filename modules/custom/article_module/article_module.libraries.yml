@@ -1,0 +1,22 @@
+datatables:
+  version: 1.x
+  css:
+    theme:
+
+      css/jquery.dataTables.min.css: {}
+      https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css: {}
+      css/style.css: {}
+  js:
+    js/jquery.min.js: {}
+    js/jquery.dataTables.min.js: {}
+    js/script.js: {}
+    https://cdn:datatables:net/plug-ins/1:12:1/dataRender/datetime.js: {}
+    https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js: {}
+    https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/jquery.once
+    - core/drupal.ajax
+    - core/views.ajax
+    - core/bootstrap
