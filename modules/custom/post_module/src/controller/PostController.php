@@ -68,8 +68,9 @@ class PostController extends ControllerBase
 
     $database = \Drupal::database();
     $query = $database->select('node_field_data', 'd')
-    ->condition('d.title', $keyword,'REGEXP')
-    ->fields('d', ['title', 'vid', 'nid', 'langcode']);
+    ->condition('d.title', '%' . $keyword . '%', 'LIKE')
+      ->condition('d.type', 'article_custom', 'IN')
+    ->fields('d', ['title', 'vid', 'nid', 'langcode','type']);
     $query=$query->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit(1);
     $result = $query->execute()->fetchAll();
 
