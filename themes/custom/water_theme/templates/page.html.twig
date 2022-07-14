@@ -14,32 +14,35 @@
       {{ page.Description }}
     </div>
 
-    <div class="content-main">
-      {{ page.Content }}
-    </div>
+
     <!-- End Site Title
     ================================================== -->
     <aside>
       <div class="row">
-        <div class="col-md-6 ml-auto">
+        <div class="col-md-3">
           {{  page.Aside }}
+        </div>
+        <div class="col-md-9">
+          <div class="content-main">
+            {{ page.Content }}
+          </div>
         </div>
       </div>
 
     </aside>
     <!-- Begin Featured
     ================================================== -->
-    <section class="featured-posts">
-      {{ page.Featured }}
-    </section>
+{#    <section class="featured-posts">#}
+{#      {{ page.Featured }}#}
+{#    </section>#}
     <!-- End Featured
     ================================================== -->
 
     <!-- Begin List Posts
     ================================================== -->
-    <section class="recent-posts">
-      {{ page.Post }}
-    </section>
+{#    <section class="recent-posts">#}
+{#      {{ page.Post }}#}
+{#    </section>#}
     <!-- End List Posts
     ================================================== -->
 

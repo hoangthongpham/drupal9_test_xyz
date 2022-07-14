@@ -1,0 +1,8 @@
+{% for key,tag in tags %}
+  <li class="list-group-item">
+    <a title=""
+       href="{{ tag.url }}">
+      {{ tag.getName() }}
+    </a>
+  </li>
+{% endfor %}

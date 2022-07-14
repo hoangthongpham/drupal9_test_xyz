@@ -9,8 +9,8 @@ base theme: classy
 regions:
   Topbar: Topbar
   Description: Description
-  Featured: Featured
-  Post: Post
+#  Featured: Featured
+#  Post: Post
   Aside: Aside
   Content: Content
   Footer: Footer

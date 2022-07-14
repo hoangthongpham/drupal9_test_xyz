@@ -1,18 +1,18 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-4">
-      <h3>{{ 'Tag' |t }}</h3>
-      {% for key,tag in tags %}
-        <li class="list-group-item">
-          <a title=""
-             href="{{ tag.url }}">
-            {{ tag.getName() }}
-          </a>
-        </li>
-      {% endfor %}
+{#    <div class="col-md-4">#}
+{#      <h3>{{ 'Tag' |t }}</h3>#}
+{#      {% for key,tag in tags %}#}
+{#        <li class="list-group-item">#}
+{#          <a title=""#}
+{#             href="{{ tag.url }}">#}
+{#            {{ tag.getName() }}#}
+{#          </a>#}
+{#        </li>#}
+{#      {% endfor %}#}
 
-    </div>
-    <div class="col-md-8">
+{#    </div>#}
+    <div class="col-md-12">
       <h3>{{ 'List article search' |t }}</h3>
       <ul class="list-group list-group-flush">
         {% for key,article in articles %}
