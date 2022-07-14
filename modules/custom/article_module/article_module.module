@@ -4,6 +4,9 @@
       'index_template' => [
         'variables' => ['langcodesList' => NULL],
       ],
+      'translations_template' => [
+        'variables' => ['langcodes' => NULL],
+      ]
     ];
   }
 ?>

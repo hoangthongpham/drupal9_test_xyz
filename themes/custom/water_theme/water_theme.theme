@@ -12,6 +12,7 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\views\Form\ViewsForm;
+use Drupal\Core\Language as lang;
 
 /**
  * Implements hook_preprocess_links__media_library_menu().
@@ -69,3 +70,7 @@ function water_theme_preprocess_image_widget(array &$variables) {
      }
    }
  }
+function water_theme_preprocess_page(array &$variables) {
+   $language=\Drupal::languageManager()->getDefaultLanguage()->getId();
+    $variables['#attached']['drupalSettings']['language'] = $language;
+}

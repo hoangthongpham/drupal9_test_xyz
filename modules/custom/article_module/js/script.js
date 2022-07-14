@@ -54,8 +54,10 @@
   };
 }));
 
-var base_url = window.location.origin+'/drupal9_test_xyz/',
-  lang = document.documentElement.lang;
+var base_url = window.location.origin+'/drupal9_test_xyz';
+  // console.log()
+base_url=drupalSettings.path.baseUrl
+  defaultLang=drupalSettings.defaultLang;
 initView({})
 
 function goFilter() {
@@ -125,14 +127,16 @@ function initView(filter) {
         },
         {
           "render": function(data, type, row) {
+            lang = (row.node_field_data_langcode==defaultLang) ? '' : row.node_field_data_langcode +'/'
+
             return `
              <div class="btn-group">
-              <a href="${base_url}/article/edit/${row.nid}" class="btn btn-sm btn-secondary">${Drupal.t('Edit')}</a>
+              <a href="${base_url+lang}admin/article/edit/${row.nid}" class="btn btn-sm btn-secondary">${Drupal.t('Edit')}</a>
               <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="visually-hidden"></span>
               </button>
               <ul class="dropdown-menu dropdown-menu-sm">
-                <li><a class="dropdown-item" href="#">${Drupal.t('Translate')}</a></li>
+                <li><a class="dropdown-item" href="${base_url}/article/translations/${row.nid}">${Drupal.t('Translate')}</a></li>
                 <li><a class="dropdown-item" href="#" onClick="DeleteArticle(${row.nid})">${Drupal.t('Delete')}</a></li>
               </ul>
             </div>
@@ -156,7 +160,7 @@ function DeleteArticle(nodeID) {
   let text = Drupal.t('This action cannot be undone');
   if (confirm(text) == true) {
     $.ajax({
-      url: base_url +`article/destroy/${nodeID}`,
+      url: base_url+lang +`admin/article/destroy/${nodeID}`,
       type: 'GET',
       dataType: 'json',
       contentType: "application/json",

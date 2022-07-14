@@ -5,18 +5,24 @@
         'variables' => ['test_var' => NULL],
       ],
       'show_template' => [
-        'variables' => ['test_var' => NULL],
+        'variables' => ['data' => NULL],
+      ],
+      'result_template' => [
+        'variables' => [
+          'articles' => [],
+          'tags' => NULL,
+        ],
       ],
     ];
   }
 function post_module_page_attachments(array &$page)
 {
   $routeName = \Drupal::routeMatch()->getRouteName();
-
+  $lang = \Drupal::languageManager()->getCurrentLanguage()->getId();
   if ($routeName == 'post_module.search')
     $page['#attached']['library'][] = 'post_module/post-search';
-  //$controller=ControllerResolverInterface::getController();
- // dd($controller);
+    $page['#attached']['drupalSettings']['defaultLang'] = $lang;
+
 }
 
 ?>

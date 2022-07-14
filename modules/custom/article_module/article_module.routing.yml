@@ -1,13 +1,13 @@
 article_module.form:
-  path: 'article/create'
+  path: 'admin/article/create'
   defaults:
-#    _title: 'Add Article'
+    _title: 'Add Article'
     _form: '\Drupal\article_module\Form\ArticleForm'
   requirements:
     _permission: 'access content'
 
 article_module.index:
-  path: 'article/index'
+  path: 'admin/article/index'
   defaults:
     _title: 'List Article'
     _controller: '\Drupal\article_module\Controller\ArticleController::index'
@@ -16,7 +16,7 @@ article_module.index:
     _permission: 'access content'
 
 article_module.datatable:
-  path: 'article/datatable'
+  path: 'admin/article/datatable'
   defaults:
     _title: 'List Article'
     _controller: '\Drupal\article_module\Controller\ArticleController::datatable'
@@ -25,7 +25,7 @@ article_module.datatable:
     _permission: 'access content'
 
 article_module.edit:
-  path: 'article/edit/{node}'
+  path: 'admin/article/edit/{node}'
   defaults:
     _title: 'Edit Article'
     _form: '\Drupal\article_module\Form\ArticleEditForm'
@@ -36,8 +36,18 @@ article_module.edit:
   requirements:
     _permission: 'access content'
 
+
+article_module.translations:
+  path: 'admin/article/translations/{node}'
+  defaults:
+    _title: 'Translations Article'
+    _controller: '\Drupal\article_module\Controller\ArticleController::translations'
+#    _form: '\Drupal\article_module\Form\ArticleEditForm'
+  requirements:
+    _permission: 'access content'
+
 article_module.destroy:
-  path: 'article/destroy/{nodeID}'
+  path: 'admin/article/destroy/{nodeID}'
   defaults:
     _title: 'Delete Article'
     _controller: '\Drupal\article_module\Controller\ArticleController::destroy'
@@ -47,3 +57,5 @@ article_module.destroy:
 #        type: entity:node
   requirements:
     _permission: 'access content'
+
+

@@ -12,6 +12,15 @@ post_module.show:
   defaults:
     _controller: '\Drupal\post_module\Controller\PostController::show'
     _title: 'Welcome to show post controller'
-    id: ~
+  requirements:
+    _permission: 'access content'
+
+
+post_module.result:
+  path: '/post/result'
+  defaults:
+    _controller: '\Drupal\post_module\Controller\PostController::result'
+    _title: 'Result post'
+#    keyword: ~
   requirements:
     _permission: 'access content'

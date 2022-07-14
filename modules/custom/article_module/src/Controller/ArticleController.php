@@ -33,6 +33,19 @@ class ArticleController extends ControllerBase
     return new JsonResponse(['result' => 'Success']);
   }
 
+  public function translations()
+  {
+    $langcodes = \Drupal::languageManager()->getLanguages();
+    $langcodesList=[] ;
+    foreach ($langcodes as $key => $lang){
+      $langcodesList[$key] = $lang->getName();
+    }
+    return [
+      '#theme' => 'translations_template',
+      '#markup' => 'Welcome to translations article.',
+      '#langcodes' => $langcodesList,
+    ];
+  }
   public function datatable(Request $request)
   {
     $column = ["node_field_data_title", "user_name",'node_field_data_langcode','node_field_data_changed','node_field_data_changed','node_field_data_status'];

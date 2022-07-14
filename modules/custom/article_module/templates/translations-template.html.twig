@@ -1,0 +1,18 @@
+<table class="table table-stripped">
+  <thead>
+  <th>{{ 'Language' |t }}</th>
+  <th>{{ 'Translation' |t }}</th>
+  <th>{{ 'Status' |t }}</th>
+  <th>{{ 'Operations' |t }}</th>
+  </thead>
+  <tbody>
+  {% for key,lang in langcodes %}
+    <tr>
+      <td>{{ lang }}</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>

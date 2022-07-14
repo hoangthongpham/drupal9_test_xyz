@@ -25,6 +25,7 @@ class ArticleEditForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state,$node=null) {
+
     $form['node_id'] = array(
       '#type' => 'hidden',
       '#required' => TRUE,
@@ -52,7 +53,6 @@ class ArticleEditForm extends FormBase {
       '#title' => t('Body'),
       '#default_value' => $node->get('body')->value , // tương tự $node->body->value
     );
-
     $tags = [];
     foreach ($node->field_tags as $tag) {
       $tags[]=\Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($tag->entity->id());
@@ -65,6 +65,9 @@ class ArticleEditForm extends FormBase {
       '#type' => 'entity_autocomplete',
       '#title' => t('tagged with'),
       '#target_type' => 'taxonomy_term',
+      'attributes' =>[
+        'class' => ['form-autocomplete']
+      ],
       '#size' => 30,
       '#maxlength' => 1024,
       '#tags' => TRUE,

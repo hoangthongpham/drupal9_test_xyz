@@ -20,3 +20,5 @@ datatables:
     - core/drupal.ajax
     - core/views.ajax
     - core/bootstrap
+    - core/drupalSettings
+

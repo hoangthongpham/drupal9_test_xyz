@@ -54,6 +54,9 @@ class ArticleForm extends FormBase {
       '#type' => 'entity_autocomplete',
       '#title' => t('tagged with'),
       '#target_type' => 'taxonomy_term',
+      'attributes' =>[
+        'class' => ['form-autocomplete']
+      ],
       '#size' => 30,
       '#maxlength' => 1024,
       '#tags' => TRUE
