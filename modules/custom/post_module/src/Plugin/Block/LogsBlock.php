@@ -21,6 +21,7 @@ class LogsBlock extends BlockBase
 
     $query = \Drupal::entityQuery('taxonomy_term');
     $query->condition('vid', 'tags');
+    $query->condition('langcode', $lang_code);
     $tids = $query->execute();
 
     $tags = \Drupal\taxonomy\Entity\Term::loadMultiple($tids);
