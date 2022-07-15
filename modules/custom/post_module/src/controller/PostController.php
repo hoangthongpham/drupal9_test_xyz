@@ -52,7 +52,7 @@ class PostController extends ControllerBase
 
     $database = \Drupal::database();
     $query = $database->select('node_field_data', 'd')
-      ->condition('d.title', '%' . $keyword . '%', 'LIKE')
+      ->condition('d.title',  $keyword , 'REGEXP')
       ->condition('d.type', 'article_custom', 'IN')
       ->condition('d.langcode',$lang_code)
     ->fields('d', ['title', 'vid', 'nid', 'langcode','type']);
