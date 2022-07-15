@@ -10,9 +10,6 @@ class PostController extends ControllerBase
 {
   public function search()
   {
-//    return array(
-//
-//    );
     return [
       '#theme' => 'post_template',
       '#markup' => 'Welcome to search post.',
@@ -21,33 +18,31 @@ class PostController extends ControllerBase
   public function show($id)
   {
     $lang_code = \Drupal::languageManager()->getCurrentLanguage()->getId();
-    $node = Node::load($id)->getTranslation($lang_code);
-    $tags = [];
-    foreach ($node->field_tags as $tag) {
-      $result=\Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($tag->entity->id());
-      $tags[]=[
-        'name' => $result->name->value,
-        'tid' => $result->tid->value
+    //dd($lang_code);
+    $node = Node::load($id);
+    if ($node->hasTranslation($lang_code)) {
+      $node->getTranslation($lang_code);
+    }
+      $tags = [];
+      foreach ($node->field_tags as $tag) {
+        $result = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($tag->entity->id());
+        $tags[] = [
+          'name' => $result->name->value,
+          'tid' => $result->tid->value
+        ];
+      }
+      $images = [];
+      foreach ($node->field_image as $img) {
+        $images[] = \Drupal::entityTypeManager()->getStorage('file')->load($img->entity->id());
+      }
+      $node->tags = $tags;
+      $node->images = $images;
+      return [
+        '#theme' => 'show_template',
+        '#markup' => 'Welcome to show post.',
+        '_title' => $node->title,
+        '#data' => $node
       ];
-    }
-    $images = [];
-    foreach ($node->field_image as $img) {
-      $images[]=\Drupal::entityTypeManager()->getStorage('file')->load($img->entity->id());
-//      $images[]=[
-//        'name' => $result->name->value,
-//        'tid' => $result->tid->value
-//      ];
-    }
-
-
-    $node->tags=$tags;
-    $node->images=$images;
-    return [
-      '#theme' => 'show_template',
-      '#markup' => 'Welcome to show post.',
-      '_title' => $node->title,
-      '#data' => $node
-    ];
   }
 
   public function result(Request $request)
@@ -55,21 +50,11 @@ class PostController extends ControllerBase
     $lang_code = \Drupal::languageManager()->getCurrentLanguage()->getId();
     $keyword=$request->get('keyword');
 
-    $totalRecord_query="SELECT
-                    COUNT(*) as total
-                  FROM
-                      node_field_data
-                WHERE node_field_data.title LIKE '%".$keyword."%'";
-    $totalrecord = intval(\Drupal::database()->query($totalRecord_query)->fetch()->total); // tổng số record @int
-
-    $num_per_page = 1;
-    $page= ($request->get('page') != null) ? $request->get('page') :1;
-    $offset = $num_per_page * $page-1;
-
     $database = \Drupal::database();
     $query = $database->select('node_field_data', 'd')
-    ->condition('d.title', '%' . $keyword . '%', 'LIKE')
+      ->condition('d.title', '%' . $keyword . '%', 'LIKE')
       ->condition('d.type', 'article_custom', 'IN')
+      ->condition('d.langcode',$lang_code)
     ->fields('d', ['title', 'vid', 'nid', 'langcode','type']);
     $query=$query->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit(1);
     $result = $query->execute()->fetchAll();
