@@ -21,14 +21,11 @@ class TagsBlock extends BlockBase {
   public function build() {
 
     $lang_code = \Drupal::languageManager()->getCurrentLanguage()->getId();
-//
+
     $query = \Drupal::entityQuery('taxonomy_term');
-    $query_or = $query->orConditionGroup()
-      ->condition('vid', 'tags')
-      ->condition('vid', 'log');
-    $query->condition($query_or);
+    $query->condition('vid', 'tags');
     $tids = $query->execute();
-    //var_dump($tids);
+
     $tags = \Drupal\taxonomy\Entity\Term::loadMultiple($tids);
 
     foreach ($tags as &$tag) {

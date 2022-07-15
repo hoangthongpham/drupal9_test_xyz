@@ -59,7 +59,6 @@ class PostController extends ControllerBase
     $query=$query->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit(1);
     $result = $query->execute()->fetchAll();
 
-
     $query = \Drupal::entityQuery('taxonomy_term');
     $query_or = $query->orConditionGroup()
       ->condition('vid', 'tags')

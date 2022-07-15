@@ -18,6 +18,10 @@
           'tags' => NULL,
         ],
       ],
+      'descriptionsection_block' => [
+        'variables' => ['title' => NULL, 'logs' => NULL],
+        'template' => 'block--descriptionsection',
+      ],
     ];
   }
 function post_module_page_attachments(array &$page)

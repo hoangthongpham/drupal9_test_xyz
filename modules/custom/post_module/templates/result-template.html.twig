@@ -14,7 +14,7 @@
 {#    </div>#}
     <div class="col-md-12">
       <h3>{{ 'List article search' |t }}</h3>
-      {% if articles|length %}
+{#      {% if articles|length %}#}
         <ul class="list-group list-group-flush">
           {% for key,article in articles %}
             <li class="list-group-item">
@@ -25,9 +25,9 @@
             </li>
           {% endfor %}
         </ul>
-      {% else %}
-        {{ 'No search result'|t }}
-      {% endif %}
+{#      {% else %}#}
+{#        {{ 'No search result'|t }}#}
+{#      {% endif %}#}
       <div class="ty">{{ pager }}</div>
     </div>
   </div>
